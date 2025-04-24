@@ -17,8 +17,19 @@ public class Main {
         System.out.println(accountB);
     }
 
-    public static synchronized void transfer(Account from, Account to, double amount){
-        from.withdraw(amount);
-        to.deposit(amount);
+    public static void transfer(Account from, Account to, double amount){
+
+        synchronized (from) {
+            System.out.println("account " + from + " is locked" + Thread.currentThread().getName());
+
+            synchronized (to) {
+                System.out.println("account " + to + " is locked");
+                from.withdraw(amount);
+                to.deposit(amount);
+            }
+            System.out.println("account " + to + " is unlocked");
+        }
+        System.out.println("account " + from + " is unlocked");
+        System.out.println("transfer is finish");
     }
 }
