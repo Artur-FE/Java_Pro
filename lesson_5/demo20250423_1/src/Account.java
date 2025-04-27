@@ -1,5 +1,7 @@
-public class Account {
+import java.util.concurrent.locks.ReentrantLock;
 
+public class Account {
+    //private ReentrantLock lock = new ReentrantLock();
     private final String iban;
     private final String owner;
     private double balance;
@@ -10,30 +12,23 @@ public class Account {
         this.balance = balance;
     }
 
-    public String getOwner() {
-        return owner;
+
+
+    public void deposit(double amount){
+        balance += amount;
     }
 
-    public String getIban() {
-        return iban;
+    public boolean withdraw(double amount){
+        if(getBalance()>=amount){
+            balance-=amount;
+            return true;
+        }
+        return false;
     }
+
 
     public double getBalance() {
         return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public void deposit(double amount) {
-            balance += amount;
-    }
-
-    public void withdraw(double amount) {
-        if(getBalance() >= amount) {
-            balance -= amount;
-        }
     }
 
     @Override
