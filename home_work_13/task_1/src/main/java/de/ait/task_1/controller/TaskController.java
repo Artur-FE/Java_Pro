@@ -24,8 +24,8 @@ public class TaskController {
 
     @PostMapping("/addTask")
     public Task addTask(@RequestBody Task task) {
-        taskRepository.addTask(task);
-        return task;
+        return taskRepository.addTask(task);
+
     }
 
     @DeleteMapping("deleteTask/{id}")

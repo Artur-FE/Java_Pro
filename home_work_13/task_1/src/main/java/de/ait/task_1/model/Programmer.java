@@ -1,10 +1,8 @@
 package de.ait.task_1.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +11,8 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 public class Programmer {
+
+    @Setter
     private Long id;
     private String name;
     private List<Task> tasks;

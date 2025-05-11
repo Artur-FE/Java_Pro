@@ -4,10 +4,8 @@ import de.ait.task_1.model.Priority;
 import de.ait.task_1.model.Programmer;
 import de.ait.task_1.model.Task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProgrammersDB implements ProgrammerRepository {
@@ -43,7 +41,7 @@ public class ProgrammersDB implements ProgrammerRepository {
         try {
 
             Task task = TaskDB.tasks.get(idTask);
-            if (!task.isTaken() && task.isStatusIsOpen()) {
+            if (!task.isTaken() && task.isStatusIsOpen() && task.getId() != null) {
                 task.setTaken(true);
                 task.setProgrammerId(idProgrammer);
                 Programmer programmer = programmers.get(idProgrammer);
@@ -60,9 +58,17 @@ public class ProgrammersDB implements ProgrammerRepository {
 
     @Override
     public boolean addProgrammer(Programmer programmer) {
-        if (programmers.get(programmer.getId()) != null) {
+        if (programmer.getId() == null){
+            Optional<Programmer> maxId = programmers.values().stream().max(Comparator.comparing(Programmer::getId));
+            Long newId = maxId.get().getId() + 1;
+            programmer.setId(newId);
+            programmers.put(newId, programmer);
+            return true;
+        }
+       else if (programmers.get(programmer.getId()) != null) {
             return false;
         } else {
+
             programmers.put(programmer.getId(), programmer);
             return true;
         }
@@ -78,11 +84,13 @@ public class ProgrammersDB implements ProgrammerRepository {
 
             Programmer programmer = programmers.get(idProgrammer);
             List<Task> tasks = programmer.getTasks();
-            tasks.stream().filter(task-> task.getId() == idTask)
+            tasks.stream().filter(task-> task.getId().equals(idTask))
                             .forEach(task -> task.setStatusIsOpen(false));
-            tasks.stream().filter(task-> task.getId() == idTask)
+            tasks.stream().filter(task-> task.getId().equals(idTask))
                     .forEach(task -> task.setTaken(false));
-            tasks.removeIf(task -> task.getId() == idTask);
+            tasks.stream().filter(task-> task.getId().equals(idTask))
+                    .forEach(task -> task.setClosedDateTime(LocalDateTime.now()));
+            tasks.removeIf(task -> task.getId().equals(idTask));
 
             return programmers.get(idProgrammer);
         } else {
