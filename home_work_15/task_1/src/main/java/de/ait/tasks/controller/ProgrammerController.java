@@ -1,15 +1,14 @@
 package de.ait.tasks.controller;
 
+import de.ait.tasks.dto.ProgrammerRequestDto;
 import de.ait.tasks.model.Programmer;
 import de.ait.tasks.model.Task;
 import de.ait.tasks.repository.ProgrammerRepository;
 import de.ait.tasks.repository.ProgrammerRepositoryMapImpl;
+import de.ait.tasks.service.ProgrammerService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +18,7 @@ import java.util.List;
 public class ProgrammerController {
 
     private final ProgrammerRepository repository;
+    private final ProgrammerService programmerService;
 
 
 
@@ -43,6 +43,11 @@ public class ProgrammerController {
     @PutMapping("/programmers/{programmerId}/tasks/{taskId}")
     public void addTaskToProgrammer(@PathVariable("programmerId") Long programmerID, @PathVariable("taskId") Long taskId){
         repository.addTaskToProgrammer(programmerID,taskId);
+    }
+
+    @PostMapping("/programmers")
+    public Programmer addProgrammer(@RequestBody ProgrammerRequestDto programmerRequestDto){
+        return programmerService.addProgrammer(programmerRequestDto);
     }
 
 }

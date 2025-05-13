@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 
-@NoArgsConstructor
+
 @Getter
 public class Programmer {
     @Setter
@@ -23,6 +23,7 @@ public class Programmer {
         this.name = name;
         this.tasks = new HashSet<>();
     }
+
 
     public void addTask(Task task){
         tasks.add(task);
