@@ -3,11 +3,15 @@ package de.ait.task_1.repository;
 import de.ait.task_1.model.Priority;
 import de.ait.task_1.model.Programmer;
 import de.ait.task_1.model.Task;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Repository
+@AllArgsConstructor
 public class ProgrammersDB implements ProgrammerRepository {
 
     private static HashMap<Long, Programmer> programmers = new HashMap<>();
@@ -39,7 +43,6 @@ public class ProgrammersDB implements ProgrammerRepository {
     @Override
     public Task addIdTaskProgrammerById(Long idTask, Long idProgrammer) {
         try {
-
             Task task = TaskDB.tasks.get(idTask);
             if (!task.isTaken() && task.isStatusIsOpen() && task.getId() != null) {
                 task.setTaken(true);

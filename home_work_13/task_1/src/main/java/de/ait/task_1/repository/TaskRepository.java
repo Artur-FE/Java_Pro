@@ -1,8 +1,10 @@
 package de.ait.task_1.repository;
 
 import de.ait.task_1.model.Task;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 
 public interface TaskRepository {
     public List<Task> getAllTasks();

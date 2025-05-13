@@ -2,6 +2,7 @@ package de.ait.task_1.repository;
 
 import de.ait.task_1.model.Priority;
 import de.ait.task_1.model.Task;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+@Repository
 public class TaskDB implements TaskRepository{
 
     public static Map<Long, Task> tasks = new HashMap<>();

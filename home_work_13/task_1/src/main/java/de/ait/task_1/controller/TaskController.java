@@ -3,14 +3,16 @@ package de.ait.task_1.controller;
 import de.ait.task_1.model.Task;
 import de.ait.task_1.repository.TaskDB;
 import de.ait.task_1.repository.TaskRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 public class TaskController {
 
-    TaskRepository taskRepository = new TaskDB();
+   private final TaskRepository taskRepository;
 
     @GetMapping(value="/tasks")
     public List<Task> getTasks() {

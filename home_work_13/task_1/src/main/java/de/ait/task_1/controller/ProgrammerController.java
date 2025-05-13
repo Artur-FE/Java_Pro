@@ -4,13 +4,15 @@ import de.ait.task_1.model.Programmer;
 import de.ait.task_1.model.Task;
 import de.ait.task_1.repository.ProgrammerRepository;
 import de.ait.task_1.repository.ProgrammersDB;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 public class ProgrammerController {
-    ProgrammerRepository programmersDB = new ProgrammersDB();
+    private final ProgrammerRepository programmersDB;
 
     @GetMapping("/programmers")
     public List<Programmer> getAllProgrammers(){
