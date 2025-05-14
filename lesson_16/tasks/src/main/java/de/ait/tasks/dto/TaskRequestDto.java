@@ -1,18 +1,15 @@
-package de.ait.tasks.model;
+package de.ait.tasks.dto;
 
 // Task {id, description (описание), priority (приоритет)}
 
+import de.ait.tasks.model.Priority;
 import lombok.*;
 
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
 @ToString
-@Setter
-@EqualsAndHashCode(of="id")
-public class Task {
-    @Setter
-    private Long id;
+public class TaskRequestDto {
     private String description;
     private Priority priority;
 

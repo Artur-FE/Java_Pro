@@ -8,7 +8,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @ToString
-@Setter
 @EqualsAndHashCode(of="id")
 public class Task {
     @Setter

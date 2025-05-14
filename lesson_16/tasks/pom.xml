@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>de.ait</groupId>
-	<artifactId>task_1</artifactId>
+	<artifactId>tasks</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>task_1</name>
-	<description>task_1</description>
+	<name>tasks</name>
+	<description>tasks</description>
 	<url/>
 	<licenses>
 		<license/>
