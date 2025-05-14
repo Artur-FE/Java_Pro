@@ -7,9 +7,11 @@ package de.ait.tasks.controller;
 удалить задачу № ...
  */
 
+import de.ait.tasks.dto.TaskRequestDto;
 import de.ait.tasks.model.Task;
 import de.ait.tasks.repository.TaskRepository;
 import de.ait.tasks.repository.TaskRepositoryMapImpl;
+import de.ait.tasks.service.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import java.util.List;
 @RestController
 public class TaskController {
     private final TaskRepository repository;
+    private final TaskService taskService;
 
     @GetMapping("/tasks")
     public List<Task> getTasks(){
@@ -32,9 +35,9 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public Task createNewTask(@RequestBody Task task){
-        System.out.println(task);
-        return repository.save(task);
+    public Task createNewTask(@RequestBody TaskRequestDto taskRequestDto){
+        System.out.println(taskRequestDto);
+        return taskService.addTask(taskRequestDto);
     }
 
     @DeleteMapping("/tasks/{id}")

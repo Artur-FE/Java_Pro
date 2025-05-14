@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-@AllArgsConstructor
+
 public class ProgrammerRepositoryMapImpl implements ProgrammerRepository {
     private final TaskRepository taskRepository = new TaskRepositoryMapImpl();
 
