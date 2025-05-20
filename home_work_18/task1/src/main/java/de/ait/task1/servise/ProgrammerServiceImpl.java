@@ -44,10 +44,9 @@ public class ProgrammerServiceImpl implements ProgrammerService{
     public ProgrammerResponseDto addTaskProgrammers(Long ProgrammersId, Long taskId) {
         Task task = taskRepository.findById(taskId).get();
         Programmer programmer = programmerRepository.findById(ProgrammersId).get();
-        //task.setProgrammer(programmer);
+        task.setProgrammer(programmer);
+        taskRepository.save(task);
         programmer.getTasks().add(task);
-
-//       taskRepository.save(task);
         programmerRepository.save(programmer);
         return programmerMapper.programmerToProgrammerResponseDto(programmer);
     }

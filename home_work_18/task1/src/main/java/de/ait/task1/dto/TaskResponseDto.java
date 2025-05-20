@@ -14,5 +14,5 @@ import lombok.Setter;
 public class TaskResponseDto {
     private Long id;
     private String description;
-    private Programmer programmer;
+    //private Programmer programmer;
 }

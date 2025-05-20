@@ -2,6 +2,13 @@ package de.ait.userapi.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Getter
@@ -11,7 +18,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "t_user")
-public class User {
+public class User implements UserDetails {
 
 
 
@@ -20,8 +27,59 @@ public class User {
     private Long id;
     //@Column(name = "user_name")
     private String name;
+    @Column(name = "email", unique = true)
     private String email;
     private String password;
     @Embedded
     private Address address;
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name="user_id")
+    )
+    @Column(name = "role")
+    private Set<Role> roles = new HashSet<>();
+
+    public HashSet<Role> addRole(Role role){
+        roles.add(role);
+        return new HashSet<>(roles);
+    }
+
+    public HashSet<Role> removeRole(Role role){
+        roles.remove(role);
+        return new HashSet<>(roles);
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
 }

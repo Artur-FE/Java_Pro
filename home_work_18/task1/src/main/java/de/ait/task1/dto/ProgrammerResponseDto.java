@@ -16,5 +16,5 @@ import java.util.Set;
 public class ProgrammerResponseDto {
     private Long id;
     private String name;
-    private Set<Task> tasks;
+    private Set<TaskResponseDto> tasks;
 }
